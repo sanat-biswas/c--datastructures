@@ -25,23 +25,34 @@ vector<int> findArrayIntersection(vector<int> &a, int n, vector<int> &b, int m)
     // }
 
     // optimal solution
+
     int i = 0, j = 0;
+
+    sort(a.begin(), a.end());
+    sort(b.begin(), b.end());
+
+    int last = -1;
     while (i < n && j < m)
     {
-        if (a[i] < b[j])
+        if (a[i] == b[j])
         {
+
+            // if (last != a[i])
+            // {
+
+            ans.push_back(a[i]);
+            // last = a[i];
+            // }
             i++;
-        }
-        else if (b[j] < a[i])
-        {
             j++;
+        }
+        else if (b[j] > a[i])
+        {
+            ++i;
         }
         else
         {
-            // incase both are equal
-            ans.push_back(a[i]);
-            i++;
-            j++;
+            ++j;
         }
     }
     return ans;
@@ -49,8 +60,8 @@ vector<int> findArrayIntersection(vector<int> &a, int n, vector<int> &b, int m)
 
 int main()
 {
-    vector<int> arr1 = {1, 1, 2, 3, 4, 5, 6};
-    vector<int> arr2 = {2, 3, 4, 4, 5, 6};
+    vector<int> arr1 = {4, 9, 5};
+    vector<int> arr2 = {9, 4, 9, 8, 4};
 
     int n = arr1.size();
     int m = arr2.size();
