@@ -62,6 +62,6 @@ int longestConsecutiveSubsequence(vector<int> &arr)
 }
 int main()
 {
-    vector<int> arr = {100, 102, 100, 101, 101, 4, 3, 2, 3, 2, 1, 1, 1, 2};
+    vector<int> arr = {0,8,4,12,2,10,6,14,1,9,5,13,3,11,7,15};
     cout << longestConsecutiveSubsequence(arr) << endl;
 }
