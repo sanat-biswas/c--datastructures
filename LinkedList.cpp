@@ -17,7 +17,7 @@ public:
 
 class LinkedList
 {
-private:
+public:
     Node *head;
 
 public:
@@ -194,7 +194,7 @@ public:
 
     /**
      * delete the node from a given position
-    */
+     */
     void deleteFromPosition(int pos)
     {
         Node *temp = head;
@@ -209,15 +209,63 @@ public:
 
         delete temp;
     }
+
+    /**
+     * check if two linked lists are identical
+     */
+    bool identicalLinkedList(Node *a, Node *b)
+    {
+        while (a != nullptr && b != nullptr)
+        {
+            if (a->data != b->data)
+                return false;
+
+            a = a->next;
+            b = b->next;
+        }
+
+        // if linked list are identical then
+        //  a and b must be null at this point
+        return (a == nullptr && b == nullptr);
+    }
+
+    /**
+     * to find the middle element of the linked list
+     */
+    void printMiddleNode(Node *head)
+    {
+        Node *slow_ptr = head;
+        Node *fast_ptr = head;
+
+        if (head != nullptr)
+        {
+            while (fast_ptr != nullptr && fast_ptr->next != nullptr)
+            {
+                fast_ptr = fast_ptr->next->next;
+
+                slow_ptr = slow_ptr->next;
+            }
+
+        cout << "Middle element " << slow_ptr->data << endl;
+        }
+
+    }
 };
 
 int main()
 {
     LinkedList list;
+    LinkedList list2;
+
     Node *head = NULL;
-    for (int i = 0; i < 5; i++)
+
+    Node *a = nullptr;
+    Node *b = nullptr;
+
+    for (int i = 1; i <= 6; i++)
     {
         list.insertAtBeginning(i);
+        list2.insertAtBeginning(i);
     }
 
     // list.insertAtEnd(20);
@@ -230,14 +278,31 @@ int main()
 
     list.printList();
 
+    cout << "List 2" << endl;
+
+    list2.printList();
+
     // cout << "Reverse linked list " << endl;
     // list.reverse();
 
-    cout << "After deleting: " << endl;
+    // cout << "After deleting: " << endl;
     // list.deleteFromEnd();
 
-    list.deleteFromPosition(2);
-    list.printList();
+    // list.deleteFromPosition(2);
+    // list.printList();
 
-    cout << "count " << list.getCount();
+    cout << "Checking identical: " << endl;
+
+    if (list.identicalLinkedList(list.head, list2.head))
+    {
+        cout << "Identical" << endl;
+    }
+    else
+    {
+        cout << "Not" << endl;
+    }
+
+    list.printMiddleNode(list.head);
+
+    cout << "count " << list.getCount() << endl;
 }
