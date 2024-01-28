@@ -101,6 +101,51 @@ public:
     tail = newNode;
     return newNode;
   }
+
+  // for inserting the data at a given position
+  Node *insertAtPosition(int data, int pos) {
+
+    Node *newNode = new Node(data);
+
+    // if position is 0 or there's no node in the list
+
+    if (head == nullptr || pos == 0) {
+      newNode->next = head;
+
+      if (head) {
+        head->prev = newNode;
+      }
+
+      head = newNode;
+      if (!tail) {
+        tail = newNode;
+      }
+      return newNode;
+    }
+    Node *temp = head;
+    for (int i = 0; i < pos - 1 && temp; i++) {
+      temp = temp->next;
+    }
+
+    // if position not found insert at the end of the list
+    if (!temp) {
+      newNode->prev = tail;
+      tail->next = newNode;
+      tail = newNode;
+    }
+
+    newNode->prev = temp;
+    newNode->next = temp->next;
+    if (temp->next) {
+
+      cout << temp << " " << temp->next << " " << temp->next->prev << endl;
+      temp->next->prev = newNode;
+    }
+
+    temp->next = newNode;
+
+    return newNode;
+  }
   // for printing the linked list
   void print() {
 
@@ -120,16 +165,18 @@ int main() {
   // dll.print(head);
 
   for (int i = 1; i < 10; i++) {
-    dll.push(i);
+    // dll.push(i);
   }
 
-  dll.print();
+  // dll.print();
 
-  dll.insertAtBeginning(20);
-  dll.print();
+  // dll.insertAtBeginning(20);
+  // dll.print();
 
-  dll.insertAtEnd(60);
-  dll.insertAtEnd(400);
+  // dll.insertAtEnd(60);
+  // dll.insertAtEnd(400);
+
+  dll.insertAtPosition(300, 2);
   dll.print();
   return 0;
 }
