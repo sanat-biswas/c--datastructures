@@ -137,14 +137,60 @@ public:
     newNode->prev = temp;
     newNode->next = temp->next;
     if (temp->next) {
-
-      cout << temp << " " << temp->next << " " << temp->next->prev << endl;
       temp->next->prev = newNode;
     }
 
     temp->next = newNode;
 
     return newNode;
+  }
+
+  // for deleting the node from the begining of the list
+  void deleteFromBegining() {
+
+    if (head == nullptr) {
+      return;
+    }
+
+    Node *temp = head;
+    if (head->next) {
+      head = head->next;
+      head->prev = nullptr;
+    } else {
+      head = tail = nullptr;
+    }
+    delete temp;
+  }
+
+  // delete the node from end of the list
+  void deleteFromEnd() {
+
+    if (tail == nullptr) {
+      return;
+    }
+
+    Node *temp = tail;
+
+    if (tail->prev) {
+      tail = tail->prev;
+      tail->next = nullptr;
+    } else {
+      head = tail = nullptr;
+    }
+
+    delete temp;
+  }
+
+  // for deleting the node from a given position
+  void deleteFromPosition(int pos) {
+    Node *temp = head;
+    for (int i = 0; i < pos - 1; i++) {
+      temp = temp->next;
+    }
+
+    temp->prev->next = temp->next;
+    temp->next->prev = temp->prev;
+    delete temp;
   }
   // for printing the linked list
   void print() {
@@ -165,10 +211,10 @@ int main() {
   // dll.print(head);
 
   for (int i = 1; i < 10; i++) {
-    // dll.push(i);
+    dll.push(i);
   }
 
-  // dll.print();
+  dll.print();
 
   // dll.insertAtBeginning(20);
   // dll.print();
@@ -176,7 +222,16 @@ int main() {
   // dll.insertAtEnd(60);
   // dll.insertAtEnd(400);
 
-  dll.insertAtPosition(300, 2);
+  // dll.insertAtPosition(300, 2);
+  // dll.print();
+
+  dll.deleteFromBegining();
+  dll.print();
+
+  dll.deleteFromEnd();
+  dll.print();
+
+  dll.deleteFromPosition(3);
   dll.print();
   return 0;
 }
